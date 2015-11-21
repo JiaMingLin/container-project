@@ -15,9 +15,6 @@
 # limitations under the License.
 
 echo "$(hostname -i) spark-master" >> /etc/hosts
-export SPARK_LOCAL_HOSTNAME=$(hostname -i)
-export SPARK_MASTER_IP=$1
-export MASTER=spark://$1:7077
 
-/opt/spark/sbin/start-master.sh
+/opt/spark/bin/spark-class org.apache.spark.deploy.master.Master --ip 0.0.0.0 --port 7077 --webui-port 8080
 tail -F /opt/spark/logs/*

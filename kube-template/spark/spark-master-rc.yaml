@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: spark-master-robin-rc
+spec:
+  replicas: 1
+  selector:
+    name: spark-master-robin
+  template:
+    metadata:
+      labels:
+        name: spark-master-robin
+    spec:
+      containers:
+      - name: spark-master-robin
+        image: jiaming/spark-master
+        command:
+         - /start.sh
+        args: 
+         - spark-master-svc
+        ports:
+         - name: master-port
+           containerPort: 7077
+         - name: history-server
+           containerPort: 8080

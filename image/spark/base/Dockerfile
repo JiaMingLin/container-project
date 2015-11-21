@@ -1,11 +1,19 @@
 FROM jiaming/base
 
-RUN apt-get update -y
-RUN apt-get install -y scala
+RUN yum update -y
 
 ENV hadoop_ver 2.6.1
 ENV spark_ver 1.5.1
 ENV SPARK_HOME /opt/spark/
+ENV SCALA_TAR_URL http://www.scala-lang.org/files/archive
+ENV SCALA_VERSION 2.10.4
+
+#install scala
+RUN wget $SCALA_TAR_URL/scala-$SCALA_VERSION.tgz
+RUN tar xvf scala-$SCALA_VERSION.tgz
+RUN mv scala-$SCALA_VERSION /usr/lib
+RUN rm scala-$SCALA_VERSION.tgz
+RUN ln -s /usr/lib/scala-$SCALA_VERSION /usr/lib/scala
 
 # Get Hadoop from US Apache mirror and extract just the native
 # libs. (Until we care about running HDFS with these containers, this
