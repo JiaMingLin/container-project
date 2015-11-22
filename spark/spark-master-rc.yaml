@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: spark-master-robin
-        image: jiaming/spark-master
+        image: robinlin/spark-master
         command:
          - /start.sh
         args: 

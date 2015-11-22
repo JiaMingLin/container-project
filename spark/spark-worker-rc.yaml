@@ -3,7 +3,7 @@ kind: ReplicationController
 metadata:
   name: spark-worker-robin-rc
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     name: spark-worker-robin
   template:
@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: spark-worker-robin
-        image: jiaming/spark-worker
+        image: robinlin/spark-worker
         command:
          - /start.sh
         args: 
