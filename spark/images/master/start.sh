@@ -14,9 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-. /start-common.sh
+echo "$(hostname -i) spark-master-svc" >> /etc/hosts
 
-echo "Use kubectl exec spark-driver -it bash to invoke commands"
-while true; do
-  sleep 100
-done
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/hadoop/lib/native
+/opt/spark/bin/spark-class org.apache.spark.deploy.master.Master --ip spark-master-svc --port 7077 --webui-port 8080
+tail -F /opt/spark/logs/*

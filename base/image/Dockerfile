@@ -7,14 +7,14 @@ RUN yum -y clean all && \
     yum -y install openssh* git wget unzip curl net-tools build-essential npm python python-setuptools python-dev python-numpy
 
 # Enable the SSH
-RUN rm -f /etc/ssh/ssh_host_dsa_key /etc/ssh/ssh_host_rsa_key && \
-    ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key && \
-    ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key && \
-    sed -i "s/#UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && \
-    sed -i "s/PasswordAuthentication.*/PasswordAuthentication no/g" /etc/ssh/sshd_config && \
-    sed -i "s/UsePAM.*/UsePAM yes/g" /etc/ssh/sshd_config
+#RUN rm -f /etc/ssh/ssh_host_dsa_key /etc/ssh/ssh_host_rsa_key && \
+#    ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key && \
+#    ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key && \
+#    sed -i "s/#UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && \
+#    sed -i "s/PasswordAuthentication.*/PasswordAuthentication no/g" /etc/ssh/sshd_config && \
+#    sed -i "s/UsePAM.*/UsePAM yes/g" /etc/ssh/sshd_config
 
-ADD ssh/* /root/.ssh/
+#ADD ssh/* /root/.ssh/
 
 RUN mkdir /usr/share/java &&\
     wget --header "Cookie: oraclelicense=accept-securebackup-cookie;" \

@@ -14,11 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if [[ $# != 1  || $1 == "" ]]; then
-    echo "Usage: . ./start.sh master_address"
-    exit 1
-fi
+export ZEPPELIN_HOME=/opt/zeppelin
+export ZEPPELIN_CONF_DIR="${ZEPPELIN_HOME}/conf"
 
-/opt/spark/sbin/start-slave.sh spark://$1:7077
-
-tail -F /opt/spark/logs/*
+echo "=== Launching Zeppelin under Docker ==="
+/opt/zeppelin/bin/zeppelin.sh "${ZEPPELIN_CONF_DIR}"

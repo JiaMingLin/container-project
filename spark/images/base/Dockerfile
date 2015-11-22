@@ -41,3 +41,5 @@ RUN mkdir -p /opt && \
 # TODO Do we need to add S3 and Swift connector here?
 
 ADD log4j.properties /opt/spark/conf/log4j.properties
+ADD spark-defaults.conf /opt/spark/conf/spark-defaults.conf
+ENV PATH $PATH:/opt/spark/bin
