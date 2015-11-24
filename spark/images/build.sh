@@ -21,3 +21,9 @@ docker push $ACCOUNT/spark-base:$SPARK_TAG
 docker push $ACCOUNT/spark-master:$SPARK_TAG
 docker push $ACCOUNT/spark-worker:$SPARK_TAG
 docker push $ACCOUNT/zeppelin:$ZEPPELIN_TAG
+
+# clean
+docker rmi -f $ACCOUNT/spark-base:$SPARK_TAG
+docker rmi -f $ACCOUNT/spark-master:$SPARK_TAG
+docker rmi -f $ACCOUNT/spark-worker:$SPARK_TAG
+docker rmi -f $ACCOUNT/zeppelin:$ZEPPELIN_TAG

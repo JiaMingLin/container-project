@@ -1,4 +1,4 @@
-FROM jiaming/base
+FROM robinlin/base
 
 MAINTAINER robinlin <robin890650@gmail.com>
 

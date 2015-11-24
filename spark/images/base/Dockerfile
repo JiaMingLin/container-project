@@ -1,4 +1,4 @@
-FROM jiaming/base
+FROM robinlin/base
 
 RUN yum update -y
 
