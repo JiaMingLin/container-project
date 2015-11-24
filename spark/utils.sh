@@ -13,13 +13,22 @@ function start_spark(){
   kubectl create -f spark-master-rc.yaml
   sleep 10 
   kubectl create -f spark-master-svc.yaml
+  kubectl create -f spark-history-svc.yaml
   # create the spark worker replication-controller
   kubectl create -f spark-worker-rc.yaml
+   
+  # create the zeppelin service
+  kubectl create -f zeppelin-rc.yaml
+  kubectl create -f zeppelin-svc.yaml
 }
 
 function stop_spark(){
   # TODO the nsame of rc and svc should be variables.
   kubectl delete rc spark-master-robin-rc
   kubectl delete svc spark-master-svc
+  kubectl delete svc spark-history-svc
   kubectl delete rc spark-worker-robin-rc
+  
+  kubectl delete rc  zeppelin-controller
+  kubectl delete svc zeppelin
 }

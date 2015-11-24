@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: spark-worker-robin
-        image: robinlin/spark-worker
+        image: robinlin/spark-worker:1.5.1
         command:
          - /start.sh
         args: 
