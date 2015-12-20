@@ -1,0 +1,55 @@
+<!--Sun Jul 12 12:47:14 2015-->
+<configuration>
+
+<!-- connection -->    
+    <property>
+      <name>fs.defaultFS</name>
+      <value>hdfs://hadoop-namenode:8020</value>
+      <final>true</final>
+    </property>
+
+<!-- security configuration -->
+    <property>
+      <name>hadoop.security.authentication</name>
+      <value>simple</value>
+    </property>
+    
+    <property>
+      <name>hadoop.security.authorization</name>
+      <value>false</value>
+    </property>
+
+<!-- io configurations -->
+    <property>
+      <name>io.file.buffer.size</name>
+      <value>131072</value>
+    </property>
+    
+    <property>
+      <name>io.serializations</name>
+      <value>org.apache.hadoop.io.serializer.WritableSerialization</value>
+    </property>
+
+<!-- ipc configurations -->
+    <property>
+      <name>ipc.client.connect.max.retries</name>
+      <value>50</value>
+    </property>
+    
+    <property>
+      <name>ipc.client.connection.maxidletime</name>
+      <value>30000</value>
+    </property>
+    
+    <property>
+      <name>ipc.client.idlethreshold</name>
+      <value>8000</value>
+    </property>
+    
+    <property>
+      <name>ipc.server.tcpnodelay</name>
+      <value>true</value>
+    </property>
+
+
+</configuration>
