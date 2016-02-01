@@ -6,7 +6,7 @@ ENV RRO_VERSION_MINOR 2.2
 ENV DEPLOYR_VERSION_MAJOR 8
 ENV DEPLOYR_VERSION_MINOR 0.0
 ENV RSERVER_VERSION_MAJOR 7
-ENV RSERVER_VERSION_MINOR 4.1
+ENV RSERVER_VERSION_MINOR 4.2
 
 RUN yum clean all && \
     yum update -y && \
@@ -51,9 +51,20 @@ RUN cd deployrdownload && \
 ADD installDeployROpen.sh deployrdownload/installFiles/
 
 USER root
-RUN chown deployr:deployr deployrdownload/installFiles/installDeployROpen.sh
+RUN chown deployr:deployr deployrdownload/installFiles/installDeployROpen.sh && \
+    yum install which -y
 USER deployr
 RUN cd deployrdownload/installFiles/ && \
     chmod +x installDeployROpen.sh && \
     sync && \
     ./installDeployROpen.sh --no-ask --nolicense
+ADD startAll.sh deployr/${DEPLOYR_VERSION_MAJOR}.${DEPLOYR_VERSION_MINOR}/
+USER root
+RUN chown deployr:deployr deployr/${DEPLOYR_VERSION_MAJOR}.${DEPLOYR_VERSION_MINOR}/startAll.sh
+USER deployr
+RUN chmod +x deployr/${DEPLOYR_VERSION_MAJOR}.${DEPLOYR_VERSION_MINOR}/startAll.sh && sync
+RUN rm -rf deployrdownload
+
+EXPOSE 8000 8006
+
+CMD cd deployr/${DEPLOYR_VERSION_MAJOR}.${DEPLOYR_VERSION_MINOR}/ && ./startAll.sh
