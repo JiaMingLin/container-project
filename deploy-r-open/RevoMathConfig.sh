@@ -1,8 +1,6 @@
 #!/bin/bash
 
 PWDD=`pwd`
-#RRO_VERSION_MAJOR=3
-#RRO_VERSION_MINOR=2.2
 R_PATH="noop"
 LIB_PATH=
 ETC_PATH=
