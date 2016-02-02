@@ -36,7 +36,7 @@ LINUX=redhat
 DB_PATH=""
 ##HOST_NAME=`/sbin/ifconfig  | grep --max-count=1 'inet'| grep --max-count=1 -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'`
 ##HOST_NAME=`/sbin/ifconfig | grep --max-count=1 'inet'| grep --max-count=1 -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'`
-HOST_NAME=localhost
+HOST_NAME=${HOST_SERVER_IP:-localhost}
 
 checkRoot() {
         uid=`id -u`

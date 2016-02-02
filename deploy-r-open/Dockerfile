@@ -1,4 +1,4 @@
-FROM robinlin/base-lite:java1.8
+FROM robinlin/base-list:java1.8
 MAINTAINER robin robin890650@gmail.com
 
 ENV RRO_VERSION_MAJOR 3
@@ -7,6 +7,7 @@ ENV DEPLOYR_VERSION_MAJOR 8
 ENV DEPLOYR_VERSION_MINOR 0.0
 ENV RSERVER_VERSION_MAJOR 7
 ENV RSERVER_VERSION_MINOR 4.2
+ENV HOST_SERVER_IP 140.92.2.194
 
 RUN yum clean all && \
     yum update -y && \
@@ -65,6 +66,6 @@ USER deployr
 RUN chmod +x deployr/${DEPLOYR_VERSION_MAJOR}.${DEPLOYR_VERSION_MINOR}/startAll.sh && sync
 RUN rm -rf deployrdownload
 
-EXPOSE 8000 8006
+EXPOSE 8010 8006
 
 CMD cd deployr/${DEPLOYR_VERSION_MAJOR}.${DEPLOYR_VERSION_MINOR}/ && ./startAll.sh
