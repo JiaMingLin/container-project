@@ -1,4 +1,4 @@
-FROM robinlin/base-list:java1.8
+FROM robinlin/base:latest
 MAINTAINER robin robin890650@gmail.com
 
 ENV RRO_VERSION_MAJOR 3
