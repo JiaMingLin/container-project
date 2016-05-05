@@ -1,6 +1,9 @@
 FROM robinlin/base:latest
 MAINTAINER robin robin890650@gmail.com
 
+FROM robinlin/base:latest
+MAINTAINER robin robin890650@gmail.com
+
 ENV RRO_VERSION_MAJOR 3
 ENV RRO_VERSION_MINOR 2.2
 ENV DEPLOYR_VERSION_MAJOR 8
@@ -60,8 +63,14 @@ RUN cd deployrdownload/installFiles/ && \
     sync && \
     ./installDeployROpen.sh --no-ask --nolicense
 ADD startAll.sh deployr/${DEPLOYR_VERSION_MAJOR}.${DEPLOYR_VERSION_MINOR}/
+ADD onchange.sh deployr/${DEPLOYR_VERSION_MAJOR}.${DEPLOYR_VERSION_MINOR}/
+
 USER root
-RUN chown deployr:deployr deployr/${DEPLOYR_VERSION_MAJOR}.${DEPLOYR_VERSION_MINOR}/startAll.sh
+RUN chown deployr:deployr deployr/${DEPLOYR_VERSION_MAJOR}.${DEPLOYR_VERSION_MINOR}/startAll.sh deployr/${DEPLOYR_VERSION_MAJOR}.${DEPLOYR_VERSION_MINOR}/onchange.sh && \
+    chmod +r deployr/${DEPLOYR_VERSION_MAJOR}.${DEPLOYR_VERSION_MINOR}/deployr/database/*
+RUN yum install epel-release -y
+RUN yum --enablerepo=epel -y install inotify-tools rsync xinetd
+
 USER deployr
 RUN chmod +x deployr/${DEPLOYR_VERSION_MAJOR}.${DEPLOYR_VERSION_MINOR}/startAll.sh && sync
 RUN rm -rf deployrdownload

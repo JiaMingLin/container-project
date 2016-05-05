@@ -6,7 +6,10 @@ else
   yes | $INSTALL_FOLDER/deployr/tools/setWebContext.sh -ip ${HOST_SERVER_IP} -disableauto
 fi
 
+cp -r /home/deployr/data/* $INSTALL_FOLDER/deployr/
+
 $INSTALL_FOLDER/mongo/mongod.sh start
 $INSTALL_FOLDER/rserve/rserve.sh start
 #yes | $INSTALL_FOLDER/deployr/tools/setWebContext.sh -ip 192.168.99.100 -disableauto
 $INSTALL_FOLDER/tomcat/tomcat7/bin/catalina.sh run > $INSTALL_FOLDER/tomcat/tomcat7/logs/tomcat.log 2>&1
+$INSTALL_FOLDER/onchange.sh rsync -av /home/deployr/deployr/8.0.0/deployr/ /home/deployr/data/
