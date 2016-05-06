@@ -1,9 +1,9 @@
-FROM centos:6.6
-
+FROM ubuntu:14.04
 MAINTAINER robin robin890650@gmail.com
 
-RUN yum update -y
-RUN yum install wget tar -y
+RUN apt-get update -y && \
+    apt-get dist-upgrade -y --force-yes && \
+    apt-get install -y --force-yes wget
 
 # install java
 RUN mkdir /usr/share/java &&\
