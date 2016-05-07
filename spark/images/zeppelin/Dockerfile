@@ -29,9 +29,12 @@ RUN apt-get install curl -y --force-yes && \
     echo Zeppelin ${ZEPPELIN_VER} installed in /opt
 
 #ADD zeppelin-log4j.properties /opt/zeppelin/conf/log4j.properties
-#ADD zeppelin-env.sh /opt/zeppelin/conf/zeppelin-env.sh
-#ADD docker-zeppelin.sh /opt/zeppelin/bin/docker-zeppelin.sh
+RUN mkdir -p /opt/hadoop/conf
+ADD zeppelin-env.sh /opt/zeppelin/conf/zeppelin-env.sh
+ADD docker-zeppelin.sh /opt/zeppelin/bin/docker-zeppelin.sh
+ADD core-site.xml /opt/hadoop/conf/core-site.xml
+ADD yarn-site.xml /opt/hadoop/conf/yarn-site.xml
+ADD hdfs-site.xml /opt/hadoop/conf/hdfs-site.xml
 EXPOSE 8080
-WORKDIR /opt/zeppelin/
 
-ENTRYPOINT ["bin/zeppelin.sh"]
+ENTRYPOINT ["/opt/zeppelin/bin/docker-zeppelin.sh"]

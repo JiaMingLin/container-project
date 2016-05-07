@@ -16,6 +16,7 @@
 
 export ZEPPELIN_HOME=/opt/zeppelin
 export ZEPPELIN_CONF_DIR="${ZEPPELIN_HOME}/conf"
+export HADOOP_CONF_DIR=/opt/hadoop/conf
 
 echo "=== Launching Zeppelin under Docker ==="
-/opt/zeppelin/bin/zeppelin.sh
+/opt/zeppelin/bin/zeppelin.sh ${ZEPPELIN_CONF_DIR}
