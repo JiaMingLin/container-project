@@ -15,19 +15,23 @@
 # This image relies on the zeppelin-build image to get the zeppelin
 # binaries built, and the Makefile to put it in this directory.
 
-FROM robinlin/spark-base:latest
+FROM robinlin/jre-base:1.8
 
-ENV ZEPPELIN_VER  0.5.5-incubating
+ENV ZEPPELIN_VER  0.5.6-incubating
 
-RUN mkdir -p /opt && \
+RUN apt-get install curl -y --force-yes && \
+    mkdir -p /opt && \
     cd /opt && \
     curl http://www.us.apache.org/dist/incubator/zeppelin/${ZEPPELIN_VER}/zeppelin-${ZEPPELIN_VER}-bin-all.tgz | \
         tar -zx && \
     ln -s zeppelin-${ZEPPELIN_VER}-bin-all zeppelin && \
+    ln -s /usr/bin/python3 /usr/bin/python && \
     echo Zeppelin ${ZEPPELIN_VER} installed in /opt
 
-ADD zeppelin-log4j.properties /opt/zeppelin/conf/log4j.properties
-ADD zeppelin-env.sh /opt/zeppelin/conf/zeppelin-env.sh
-ADD docker-zeppelin.sh /opt/zeppelin/bin/docker-zeppelin.sh
+#ADD zeppelin-log4j.properties /opt/zeppelin/conf/log4j.properties
+#ADD zeppelin-env.sh /opt/zeppelin/conf/zeppelin-env.sh
+#ADD docker-zeppelin.sh /opt/zeppelin/bin/docker-zeppelin.sh
 EXPOSE 8080
-ENTRYPOINT ["/opt/zeppelin/bin/docker-zeppelin.sh"]
+WORKDIR /opt/zeppelin/
+
+ENTRYPOINT ["bin/zeppelin.sh"]
