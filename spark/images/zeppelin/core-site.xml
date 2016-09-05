@@ -22,9 +22,9 @@
   <value>org.apache.hadoop.fs.s3native.NativeS3FileSystem</value>
 </property>
 <property>
-    <name>fs.defaultFS</name>
-     <value>hdfs://localhost:8020</value>
-</property>
+     <name>fs.defaultFS</name>
+     <value>hdfs://namenode:8020</value>
+    </property>
     <property>
         <name>dfs.replication</name>
         <value>1</value>

@@ -17,5 +17,25 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
-
+<property>
+     <name>dfs.namenode.http-address</name>
+     <value>namenode:50070</value>
+     <description>Enter your NameNode hostname for http access.</description>
+</property>
+<property>
+     <name>dfs.namenode.secondary.http-address</name>
+     <value>namenode:50090</value>
+     <description>Enter your Secondary NameNode hostname.</description>
+</property>
+<property>
+     <name>dfs.namenode.rpc-address</name>
+     <value>namenode:8020</value>
+     <description>The RPC address that handles all clients requests.</description>
+</property>
+                    
+<property>
+     <name>dfs.namenode.https-address</name>
+     <value>namenode:50470</value>
+     <description>The namenode secure http server address and port.</description>
+</property>
 </configuration>

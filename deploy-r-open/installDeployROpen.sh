@@ -1,9 +1,9 @@
 #!/bin/bash
 EDITION=community
 RETVAL=0
-NOASK="false"
-DEBUG_LOGS="false"
-NOLICENSE="false"
+NOASK="true"
+DEBUG_LOGS="true"
+NOLICENSE="true"
 NODE=0
 DATABASE_SERVER_NAME="localhost"
 DATABASE_PORT="8003"

@@ -75,6 +75,6 @@ USER deployr
 RUN chmod +x deployr/${DEPLOYR_VERSION_MAJOR}.${DEPLOYR_VERSION_MINOR}/startAll.sh && sync
 RUN rm -rf deployrdownload
 
-EXPOSE 8010 8006
-
+EXPOSE 8010 8006 8004 8005
+VOLUME /home/deployr/data/
 CMD cd deployr/${DEPLOYR_VERSION_MAJOR}.${DEPLOYR_VERSION_MINOR}/ && ./startAll.sh

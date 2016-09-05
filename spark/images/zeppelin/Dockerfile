@@ -1,40 +1,68 @@
-# Copyright 2015 The Kubernetes Authors All rights reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-# This image relies on the zeppelin-build image to get the zeppelin
-# binaries built, and the Makefile to put it in this directory.
-
 FROM robinlin/jre-base:1.8
+MAINTAINER robin robin890650@gmail.com
 
-ENV ZEPPELIN_VER  0.5.6-incubating
+# python install
+RUN apt-get update && \
+    apt-get install software-properties-common -y --force-yes && \
+    add-apt-repository ppa:fkrull/deadsnakes && \
+    apt-get install git g++ libopenblas-dev python-pandas python-numpy python-scipy python-pip libatlas-base-dev gfortran python-dev python-matplotlib -y --force-yes && \
+    pip install scikit-learn
 
-RUN apt-get install curl -y --force-yes && \
-    mkdir -p /opt && \
-    cd /opt && \
-    curl http://www.us.apache.org/dist/incubator/zeppelin/${ZEPPELIN_VER}/zeppelin-${ZEPPELIN_VER}-bin-all.tgz | \
-        tar -zx && \
-    ln -s zeppelin-${ZEPPELIN_VER}-bin-all zeppelin && \
-    ln -s /usr/bin/python3 /usr/bin/python && \
-    echo Zeppelin ${ZEPPELIN_VER} installed in /opt
+# R install
+RUN sudo sh -c 'echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list' && \
+    gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9 && \
+    gpg -a --export E084DAB9 | sudo apt-key add - && \
+    sudo apt-get update && \
+    sudo apt-get -y install r-base
 
-#ADD zeppelin-log4j.properties /opt/zeppelin/conf/log4j.properties
-RUN mkdir -p /opt/hadoop/conf
-ADD zeppelin-env.sh /opt/zeppelin/conf/zeppelin-env.sh
-ADD docker-zeppelin.sh /opt/zeppelin/bin/docker-zeppelin.sh
-ADD core-site.xml /opt/hadoop/conf/core-site.xml
-ADD yarn-site.xml /opt/hadoop/conf/yarn-site.xml
-ADD hdfs-site.xml /opt/hadoop/conf/hdfs-site.xml
-EXPOSE 8080
+# install required R packages
+RUN echo "options(repos = c(CRAN = 'https://cran.rstudio.com'))" > /root/.Rprofile && \
+    R -e 'source("http://bioconductor.org/biocLite.R") ; biocLite(c("graph","RBGL","Rgraphviz"), ask=FALSE) ' && \
+    R -e 'install.packages(c("R.oo", "methods", "data.table", "distr", "entropy", "plyr", "FNN", "e1071", "stringr", "gRim", "gRain", "gRbase", "caret", "crayon"))'
 
-ENTRYPOINT ["/opt/zeppelin/bin/docker-zeppelin.sh"]
+# zeppelin install
+ENV ZEPPELIN_VER=0.6.1
+ENV ZEPPELIN_FULL_VER=$ZEPPELIN_VER-bin-netinst
+
+RUN cd /opt && \
+    wget http://www-eu.apache.org/dist/zeppelin/zeppelin-${ZEPPELIN_VER}/zeppelin-${ZEPPELIN_FULL_VER}.tgz && \
+    tar -zxvf zeppelin-${ZEPPELIN_FULL_VER}.tgz && \
+    ln -s zeppelin-${ZEPPELIN_FULL_VER} zeppelin && \
+    rm /opt/zeppelin-${ZEPPELIN_FULL_VER}.tgz
+
+RUN cd /opt/zeppelin && \
+    ./bin/install-interpreter.sh --name md,shell,angular,python && \
+    ./bin/install-interpreter.sh --name spark --artifact com.databricks:spark-csv_2.11:1.4.0
+
+#ADD zeppelin-env.sh /opt/zeppelin/conf/zeppelin-env.sh
+ADD docker-zeppelin.sh /docker-zeppelin.sh
+ADD zeppelin-site.xml /opt/zeppelin/conf/zeppelin-site.xml
+#ADD interpreter.json /opt/zeppelin/conf/interpreter.json
+
+#download spark
+ENV SPARK_VERSION=2.0.0-bin-hadoop2.6
+ENV SPARK_HOME=/spark
+WORKDIR /
+RUN wget http://d3kbcqa49mib13.cloudfront.net/spark-${SPARK_VERSION}.tgz && \
+    tar -zxvf spark-${SPARK_VERSION}.tgz && \
+    ln -s spark-${SPARK_VERSION} /spark && \
+    rm spark-${SPARK_VERSION}.tgz && \
+    echo 'export PATH=$PATH:$SPARK_HOME\bin' >> ~/.bashrc && \
+    source ~/.bashrc
+
+
+# credentials
+#RUN mkdir /root/.aws
+#ADD credentials /root/.aws/credentials
+
+#ENV ZEPPELIN_NOTEBOOK_S3_USER= \
+#    ZEPPELIN_NOTEBOOK_S3_BUCKET= \
+#    AWS_KEY_ID= \
+#    AWS_SECRET_KEY=
+
+EXPOSE 8080 4040
+
+VOLUME ["/data"]
+WORKDIR /opt/zeppelin
+#ENTRYPOINT ["/opt/zeppelin/bin/zeppelin.sh"]
+CMD ["bin/zeppelin.sh"]
