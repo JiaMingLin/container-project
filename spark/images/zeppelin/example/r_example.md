@@ -1,6 +1,6 @@
 # Import and Load Data
 1. Suppose the data path ```/workspace``` was attached to ```/usr/zeppelin_dir``` on host file system.
-1. On host machine, move your data to ```/usr/zeppelin_dir```, e.g.
+1. On host machine, move your data into ```/usr/zeppelin_dir```, e.g.
 	```
 	cp adults.csv /usr/zeppelin_dir
 	```
