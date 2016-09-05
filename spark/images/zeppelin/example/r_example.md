@@ -4,7 +4,7 @@
 	```
 	cp adults.csv /usr/zeppelin_dir
 	```
-1. Now, we can read the file ```adults.csv``` by using R on Zeppelin. Copy and paste following list to your notebook
+1. Now, we can read the file ```adults.csv``` by using R on Zeppelin. Copy and paste following codes on your notebook
 	```
 	%r
 	csvPath <- '/workspace/adults.csv'
