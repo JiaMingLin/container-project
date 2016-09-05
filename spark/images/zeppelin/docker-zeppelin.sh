@@ -17,8 +17,8 @@
 #export ZEPPELIN_HOME=/opt/zeppelin
 #export ZEPPELIN_CONF_DIR="${ZEPPELIN_HOME}/conf"
 
-#export SPARK_HOME=/opt/spark
-#export PATH=$PATH:$SPARK_HOME/bin
+export SPARK_HOME=/opt/spark
+export PATH=$PATH:$SPARK_HOME/bin
 
 #if [ -n "${NAMENODE}" ]; then
 #   echo "${NAMENODE} namenode" >> /etc/hosts

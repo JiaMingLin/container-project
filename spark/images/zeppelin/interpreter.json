@@ -1,7 +1,26 @@
 {
   "interpreterSettings": {
-    "2BRMZ2ZEX": {
-      "id": "2BRMZ2ZEX",
+    "2BWNXMAQZ": {
+      "id": "2BWNXMAQZ",
+      "name": "angular",
+      "group": "angular",
+      "properties": {},
+      "interpreterGroup": [
+        {
+          "class": "org.apache.zeppelin.angular.AngularInterpreter",
+          "name": "angular"
+        }
+      ],
+      "dependencies": [],
+      "option": {
+        "remote": true,
+        "perNoteSession": false,
+        "perNoteProcess": false,
+        "isExistingProcess": false
+      }
+    },
+    "2BUKSHHTU": {
+      "id": "2BUKSHHTU",
       "name": "sh",
       "group": "sh",
       "properties": {
@@ -16,31 +35,35 @@
       "dependencies": [],
       "option": {
         "remote": true,
-        "port": -1,
         "perNoteSession": false,
         "perNoteProcess": false,
         "isExistingProcess": false
       }
     },
-    "2BP7CMGCZ": {
-      "id": "2BP7CMGCZ",
+    "2BUFNSGN7": {
+      "id": "2BUFNSGN7",
       "name": "spark",
       "group": "spark",
       "properties": {
-        "spark.cores.max": "",
-        "zeppelin.spark.printREPLOutput": "true",
-        "master": "local[*]",
-        "zeppelin.spark.maxResult": "1000",
-        "zeppelin.dep.localrepo": "local-repo",
-        "spark.app.name": "Zeppelin",
         "spark.executor.memory": "",
-        "zeppelin.spark.sql.stacktrace": "false",
-        "zeppelin.spark.importImplicit": "true",
-        "zeppelin.spark.useHiveContext": "true",
         "args": "",
+        "zeppelin.spark.printREPLOutput": "true",
+        "spark.cores.max": "",
+        "zeppelin.dep.additionalRemoteRepository": "spark-packages,http://dl.bintray.com/spark-packages/maven,false;",
+        "zeppelin.spark.importImplicit": "true",
+        "zeppelin.spark.sql.stacktrace": "false",
         "zeppelin.spark.concurrentSQL": "false",
+        "zeppelin.spark.useHiveContext": "true",
         "zeppelin.pyspark.python": "python",
-        "zeppelin.dep.additionalRemoteRepository": "spark-packages,http://dl.bintray.com/spark-packages/maven,false;"
+        "zeppelin.dep.localrepo": "local-repo",
+        "zeppelin.interpreter.localRepo": "/opt/zeppelin/local-repo/2BUFNSGN7",
+        "zeppelin.R.knitr": "true",
+        "zeppelin.spark.maxResult": "1000",
+        "master": "local[*]",
+        "spark.app.name": "Zeppelin",
+        "zeppelin.R.image.width": "100%",
+        "zeppelin.R.render.options": "out.format \u003d \u0027html\u0027, comment \u003d NA, echo \u003d FALSE, results \u003d \u0027asis\u0027, message \u003d F, warning \u003d F",
+        "zeppelin.R.cmd": "R"
       },
       "interpreterGroup": [
         {
@@ -48,106 +71,37 @@
           "name": "spark"
         },
         {
-          "class": "org.apache.zeppelin.spark.SparkSqlInterpreter",
-          "name": "sql"
-        },
-        {
           "class": "org.apache.zeppelin.spark.PySparkInterpreter",
           "name": "pyspark"
+        },
+        {
+          "class": "org.apache.zeppelin.spark.SparkRInterpreter",
+          "name": "r"
+        },
+        {
+          "class": "org.apache.zeppelin.spark.SparkSqlInterpreter",
+          "name": "sql"
         },
         {
           "class": "org.apache.zeppelin.spark.DepInterpreter",
           "name": "dep"
         }
       ],
-      "dependencies": [],
-      "option": {
-        "remote": true,
-        "port": -1,
-        "perNoteSession": false,
-        "perNoteProcess": false,
-        "isExistingProcess": false
-      }
-    },
-    "2BQZE7JSQ": {
-      "id": "2BQZE7JSQ",
-      "name": "python",
-      "group": "python",
-      "properties": {
-        "zeppelin.python": "python",
-        "zeppelin.python.maxResult": "1000"
-      },
-      "interpreterGroup": [
+      "dependencies": [
         {
-          "class": "org.apache.zeppelin.python.PythonInterpreter",
-          "name": "python"
+          "groupArtifactVersion": "com.databricks:spark-csv_2.11:1.4.0",
+          "local": false
         }
       ],
-      "dependencies": [],
       "option": {
         "remote": true,
-        "port": -1,
         "perNoteSession": false,
         "perNoteProcess": false,
         "isExistingProcess": false
       }
     },
-    "2BRAZ9GGA": {
-      "id": "2BRAZ9GGA",
-      "name": "ignite",
-      "group": "ignite",
-      "properties": {
-        "ignite.peerClassLoadingEnabled": "true",
-        "ignite.config.url": "",
-        "ignite.jdbc.url": "jdbc:ignite:cfg://default-ignite-jdbc.xml",
-        "ignite.clientMode": "true",
-        "ignite.addresses": "127.0.0.1:47500..47509"
-      },
-      "interpreterGroup": [
-        {
-          "class": "org.apache.zeppelin.ignite.IgniteInterpreter",
-          "name": "ignite"
-        },
-        {
-          "class": "org.apache.zeppelin.ignite.IgniteSqlInterpreter",
-          "name": "ignitesql"
-        }
-      ],
-      "dependencies": [],
-      "option": {
-        "remote": true,
-        "port": -1,
-        "perNoteSession": false,
-        "perNoteProcess": false,
-        "isExistingProcess": false
-      }
-    },
-    "2BPJC5MPT": {
-      "id": "2BPJC5MPT",
-      "name": "file",
-      "group": "file",
-      "properties": {
-        "hdfs.user": "hdfs",
-        "hdfs.maxlength": "1000",
-        "hdfs.url": "http://localhost:50070/webhdfs/v1/"
-      },
-      "interpreterGroup": [
-        {
-          "class": "org.apache.zeppelin.file.HDFSFileInterpreter",
-          "name": "hdfs"
-        }
-      ],
-      "dependencies": [],
-      "option": {
-        "remote": true,
-        "port": -1,
-        "perNoteSession": false,
-        "perNoteProcess": false,
-        "isExistingProcess": false
-      }
-    },
-    "2BSS4A12U": {
-      "id": "2BSS4A12U",
+    "2BUE4T35G": {
+      "id": "2BUE4T35G",
       "name": "md",
       "group": "md",
       "properties": {},
@@ -160,27 +114,28 @@
       "dependencies": [],
       "option": {
         "remote": true,
-        "port": -1,
         "perNoteSession": false,
         "perNoteProcess": false,
         "isExistingProcess": false
       }
     },
-    "2BP886V8N": {
-      "id": "2BP886V8N",
-      "name": "angular",
-      "group": "angular",
-      "properties": {},
+    "2BUVSA9QZ": {
+      "id": "2BUVSA9QZ",
+      "name": "python",
+      "group": "python",
+      "properties": {
+        "zeppelin.python": "python",
+        "zeppelin.interpreter.localRepo": "/opt/zeppelin/local-repo/2BUVSA9QZ"
+      },
       "interpreterGroup": [
         {
-          "class": "org.apache.zeppelin.angular.AngularInterpreter",
-          "name": "angular"
+          "class": "org.apache.zeppelin.python.PythonInterpreter",
+          "name": "python"
         }
       ],
       "dependencies": [],
       "option": {
         "remote": true,
-        "port": -1,
         "perNoteSession": false,
         "perNoteProcess": false,
         "isExistingProcess": false
@@ -188,14 +143,26 @@
     }
   },
   "interpreterBindings": {
-    "2BR8VAE9S": [
-      "2BSS4A12U",
-      "2BP886V8N",
-      "2BRMZ2ZEX",
-      "2BPJC5MPT",
-      "2BQZE7JSQ",
-      "2BRAZ9GGA",
-      "2BP7CMGCZ"
+    "r": [
+      "2BUFNSGN7",
+      "2BUE4T35G",
+      "2BWNXMAQZ",
+      "2BUKSHHTU",
+      "2BUVSA9QZ"
+    ],
+    "2BQA35CJZ": [
+      "2BUFNSGN7",
+      "2BUE4T35G",
+      "2BWNXMAQZ",
+      "2BUKSHHTU",
+      "2BUVSA9QZ"
+    ],
+    "2A94M5J1Z": [
+      "2BUFNSGN7",
+      "2BUE4T35G",
+      "2BWNXMAQZ",
+      "2BUKSHHTU",
+      "2BUVSA9QZ"
     ]
   },
   "interpreterRepositories": [
