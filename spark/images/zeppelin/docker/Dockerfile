@@ -24,7 +24,7 @@ RUN apt-get -y install libcurl4-gnutls-dev libssl-dev && \
     R -e "install.packages(c('devtools','mplot', 'googleVis'), repos = 'http://cran.us.r-project.org'); require(devtools); install_github('ramnathv/rCharts')"
 
 # zeppelin install
-ENV ZEPPELIN_VER=0.6.1
+ENV ZEPPELIN_VER=0.6.2
 ENV ZEPPELIN_FULL_VER=$ZEPPELIN_VER-bin-netinst
 
 RUN cd /opt && \
@@ -62,7 +62,7 @@ RUN git clone --recursive https://github.com/dmlc/xgboost && \
     cd xgboost; make -j4 && \
     cd python-package; sudo python setup.py install && \
     sudo apt-get install python-setuptools
-
+RUN pip install numpy pandas sklearn seaborn -U
 
 # credentials
 #RUN mkdir /root/.aws
