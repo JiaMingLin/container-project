@@ -30,3 +30,4 @@ select * from adults_df_rdd
 ```
 Result
 ![sql](images/zeppelin_sql.png "sql")
+
