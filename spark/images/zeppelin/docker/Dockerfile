@@ -24,7 +24,7 @@ RUN apt-get -y install libcurl4-gnutls-dev libssl-dev && \
     R -e "install.packages(c('devtools','mplot', 'googleVis'), repos = 'http://cran.us.r-project.org'); require(devtools); install_github('ramnathv/rCharts')"
 
 # zeppelin install
-ENV ZEPPELIN_VER=0.6.1
+ENV ZEPPELIN_VER=0.7.1
 ENV ZEPPELIN_FULL_VER=$ZEPPELIN_VER-bin-netinst
 
 RUN cd /opt && \
@@ -53,6 +53,16 @@ RUN wget http://d3kbcqa49mib13.cloudfront.net/spark-${SPARK_VERSION}.tgz && \
     tar -zxvf spark-${SPARK_VERSION}.tgz && \
     ln -s spark-${SPARK_VERSION} spark && \
     rm spark-${SPARK_VERSION}.tgz
+
+# install the xgboost
+ENV XGBOOST_HOME=/opt/xgboost \
+    PYTHONPATH=$XGBOOST_HOME/python-package
+
+RUN git clone --recursive https://github.com/dmlc/xgboost && \
+    cd xgboost; make -j4 && \
+    cd python-package; sudo python setup.py install && \
+    sudo apt-get install python-setuptools
+RUN pip install numpy pandas sklearn seaborn -U
 
 # credentials
 #RUN mkdir /root/.aws

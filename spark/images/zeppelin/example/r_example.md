@@ -1,10 +1,10 @@
 # Import and Load Data
 1. Suppose the data path ```/workspace``` was attached to ```/usr/zeppelin_dir``` on host file system.
-1. On host machine, move your data to ```/usr/zeppelin_dir```, e.g.
+1. On host machine, move your data into ```/usr/zeppelin_dir```, e.g.
 	```
 	cp adults.csv /usr/zeppelin_dir
 	```
-1. Now, we can read the file ```adults.csv``` by using R on Zeppelin. Copy and paste following list to your notebook
+1. Now, we can read the file ```adults.csv``` by using R on Zeppelin. Copy and paste following codes on your notebook
 	```
 	%r
 	csvPath <- '/workspace/adults.csv'
@@ -30,4 +30,3 @@ select * from adults_df_rdd
 ```
 Result
 ![sql](images/zeppelin_sql.png "sql")
-
